@@ -31,7 +31,7 @@ typedef struct
 
 static char *descriptor_str_config[11];
 
-class EspTinyUSB : Stream
+class EspTinyUSB : public Stream
 {
 public:
     EspTinyUSB(bool extPhy = false);
