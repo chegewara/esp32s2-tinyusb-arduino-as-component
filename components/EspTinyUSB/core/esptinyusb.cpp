@@ -83,6 +83,7 @@ EspTinyUSB::EspTinyUSB(bool extPhy)
 bool EspTinyUSB::begin()
 {
     descriptor_strings_t _strings = {
+        .langId = { 0x09, 0x04 },
         .manufacturer = "Espressif",
         .product = "Test device",
         .serial = "1234-5678",

@@ -17,4 +17,7 @@ public:
     size_t write(uint8_t) { return 0; }
     size_t write(const uint8_t *buffer, size_t size) { return 0; }
 
+    void onData(hid_on_data_t cb);
+
+    hid_on_data_t _data_cb;
 };

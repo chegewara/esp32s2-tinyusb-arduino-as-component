@@ -27,9 +27,10 @@ uint8_t* EspTinyUSB::descriptor_config_if = NULL;
 
 uint8_t* EspTinyUSB::getConfigurationDescriptor()
 {
-    int CONFIG_TOTAL_LEN = TUD_CONFIG_DESC_LEN + (int)enableCDC * TUD_CDC_DESC_LEN + (int)enableMSC * TUD_MSC_DESC_LEN +
-                       (int)enableHID * TUD_HID_DESC_LEN + (int)enableVENDOR * TUD_VENDOR_DESC_LEN + 
-                       (int)enableMIDI * TUD_MIDI_DESC_LEN + (int)enableDFU * TUD_DFU_RT_DESC_LEN;
+    int CONFIG_TOTAL_LEN = TUD_CONFIG_DESC_LEN + 
+                        (int)enableCDC * TUD_CDC_DESC_LEN + (int)enableMSC * TUD_MSC_DESC_LEN +
+                        (int)enableHID * TUD_HID_INOUT_DESC_LEN + (int)enableVENDOR * TUD_VENDOR_DESC_LEN + 
+                        (int)enableMIDI * TUD_MIDI_DESC_LEN + (int)enableDFU * TUD_DFU_RT_DESC_LEN;
 
 
     // interface count, string index, total length, attribute, power in mA
@@ -47,10 +48,9 @@ ESP_LOG_BUFFER_HEX_LEVEL("", EspTinyUSB::descriptor_config_if, total, ESP_LOG_ER
     return EspTinyUSB::descriptor_config_if;
 }
 
-static char langId[] = { 0x09, 0x04 };
 void EspTinyUSB::setDeviceDescriptorStrings()
 {
-    descriptor_str_config[0] = langId;    // 0: is supported language is English (0x0409)
+    descriptor_str_config[0] = strings.langId;    // 0: is supported language is English (0x0409)
     descriptor_str_config[1] = strings.manufacturer; // 1: Manufacturer
     descriptor_str_config[2] = strings.product;      // 2: Product
     descriptor_str_config[3] = strings.serial;       // 3: Serials, should use chip ID

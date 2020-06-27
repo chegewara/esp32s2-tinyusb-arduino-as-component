@@ -13,10 +13,11 @@ typedef void (*esp_tud_suspend_cb)(bool remote_wakeup_en);
 typedef void (*esp_tud_resume_cb)(void);
 typedef void (*usb_connected_cb)(bool);
 typedef void (*usb_data_cb_t)(void);
+typedef void (*hid_on_data_t)(uint8_t report_id, uint8_t report_type, uint8_t const* buffer, uint16_t bufsize);
 
 typedef struct 
 {
-    // char langId[2];
+    char langId[2];
     char *manufacturer;
     char *product;
     char *serial;
@@ -31,7 +32,7 @@ typedef struct
 
 static char *descriptor_str_config[11];
 
-class EspTinyUSB : public Stream
+class EspTinyUSB : Stream
 {
 public:
     EspTinyUSB(bool extPhy = false);
